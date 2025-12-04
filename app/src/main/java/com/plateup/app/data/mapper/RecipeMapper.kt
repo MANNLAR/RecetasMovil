@@ -18,6 +18,11 @@ fun RecipeEntity.toDomain(
     costo = costo,
     calificacion = calificacion,
     imagenUrl = imagenUrl,
+    creadoPor = creadoPor,
+    calorias = calorias,
+    proteinas = proteinas,
+    grasas = grasas,
+    carbohidratos = carbohidratos,
     ingredientes = ingredients.map { it.toDomain() },
     pasos = steps.map { it.toDomain() }
 )

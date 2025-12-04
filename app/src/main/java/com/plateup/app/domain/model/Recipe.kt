@@ -8,6 +8,11 @@ data class Recipe(
     val costo: String,
     val calificacion: Double,
     val imagenUrl: String?,
+    val creadoPor: Long,
+    val calorias: Int,
+    val proteinas: Int,
+    val grasas: Int,
+    val carbohidratos: Int,
     val ingredientes: List<Ingredient> = emptyList(),
     val pasos: List<Step> = emptyList()
 )

@@ -1,6 +1,7 @@
 package com.plateup.app.data.repository
 
 import com.plateup.app.core.util.PasswordHasher
+import com.plateup.app.core.util.SessionManager
 import com.plateup.app.data.local.dao.AuthDao
 import com.plateup.app.data.mapper.toDomain
 import com.plateup.app.data.mapper.toEntity
@@ -17,7 +18,10 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class AuthRepository(private val authDao: AuthDao) {
+class AuthRepository(
+    private val authDao: AuthDao,
+    private val sessionManager: SessionManager
+) {
     private val scope = CoroutineScope(Dispatchers.IO)
     private val _currentUser = MutableStateFlow<User?>(null)
     val currentUser: StateFlow<User?> = _currentUser
@@ -36,6 +40,7 @@ class AuthRepository(private val authDao: AuthDao) {
         )
         val user = authDao.getUserById(id)?.toDomain()
         _currentUser.value = user
+        sessionManager.setCurrentUser(id)
         return user?.let { Result.success(it) } ?: Result.failure(IllegalStateException("No se pudo crear usuario"))
     }
 
@@ -46,6 +51,7 @@ class AuthRepository(private val authDao: AuthDao) {
         return if (hashed == user.hashedPassword) {
             val domain = user.toDomain()
             _currentUser.value = domain
+            sessionManager.setCurrentUser(domain.id)
             Result.success(domain)
         } else {
             Result.failure(IllegalArgumentException("Contraseña incorrecta"))
@@ -54,6 +60,7 @@ class AuthRepository(private val authDao: AuthDao) {
 
     fun logout() {
         _currentUser.value = null
+        scope.launch { sessionManager.setCurrentUser(null) }
     }
 
     fun observeProfile(userId: Long): Flow<UserProfile?> = authDao.observeProfile(userId).map { it?.toDomain() }

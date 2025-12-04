@@ -7,6 +7,7 @@ import androidx.room.RoomDatabase
 import com.plateup.app.data.local.dao.AuthDao
 import com.plateup.app.data.local.dao.RecipeDao
 import com.plateup.app.data.local.entity.CommentEntity
+import com.plateup.app.data.local.entity.FridgeIngredientEntity
 import com.plateup.app.data.local.entity.IngredientEntity
 import com.plateup.app.data.local.entity.RatingEntity
 import com.plateup.app.data.local.entity.RecipeEntity
@@ -28,9 +29,10 @@ import kotlinx.coroutines.launch
         StepEntity::class,
         RatingEntity::class,
         CommentEntity::class,
-        SavedRecipeEntity::class
+        SavedRecipeEntity::class,
+        FridgeIngredientEntity::class
     ],
-    version = 1
+    version = 2
 )
 abstract class AppDatabase : RoomDatabase() {
     abstract fun authDao(): AuthDao
@@ -74,33 +76,49 @@ abstract class AppDatabase : RoomDatabase() {
                     titulo = "Ensalada fresca",
                     categoria = "Saludable",
                     tiempoMinutos = 15,
-                    costo = "Bajo",
+                    costo = "1",
                     calificacion = 4.5,
-                    imagenUrl = null
+                    imagenUrl = null,
+                    creadoPor = userId,
+                    calorias = 320,
+                    proteinas = 8,
+                    grasas = 12,
+                    carbohidratos = 40
                 ),
                 RecipeEntity(
                     titulo = "Pasta cremosa",
                     categoria = "Rápido",
                     tiempoMinutos = 25,
-                    costo = "Medio",
+                    costo = "2",
                     calificacion = 4.0,
-                    imagenUrl = null
+                    imagenUrl = null,
+                    creadoPor = userId,
+                    calorias = 520,
+                    proteinas = 16,
+                    grasas = 18,
+                    carbohidratos = 70
                 ),
                 RecipeEntity(
                     titulo = "Tacos de pollo",
                     categoria = "Alta proteína",
                     tiempoMinutos = 35,
-                    costo = "Bajo",
+                    costo = "1",
                     calificacion = 4.8,
-                    imagenUrl = null
+                    imagenUrl = null,
+                    creadoPor = userId,
+                    calorias = 480,
+                    proteinas = 34,
+                    grasas = 14,
+                    carbohidratos = 45
                 )
             )
             recetas.forEach { receta ->
-                val recipeId = recipeDao.upsertRecipe(receta)
+                val recipeId = recipeDao.insertRecipe(receta)
                 recipeDao.insertIngredients(
                     listOf(
-                        IngredientEntity(recipeId = recipeId, nombre = "Ingrediente A", cantidad = "1 taza"),
-                        IngredientEntity(recipeId = recipeId, nombre = "Ingrediente B", cantidad = "2 cdas")
+                        IngredientEntity(recipeId = recipeId, nombre = "Pollo", cantidad = "200 g"),
+                        IngredientEntity(recipeId = recipeId, nombre = "Limón", cantidad = "1 unidad"),
+                        IngredientEntity(recipeId = recipeId, nombre = "Hierbas", cantidad = "al gusto")
                     )
                 )
                 recipeDao.insertSteps(

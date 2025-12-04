@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.remember
 import com.plateup.app.core.theme.PlateUpTheme
+import com.plateup.app.core.util.SessionManager
 import com.plateup.app.data.local.db.AppDatabase
 import com.plateup.app.data.repository.AuthRepository
 import com.plateup.app.data.repository.RecipeRepository
@@ -36,7 +37,8 @@ class MainActivity : ComponentActivity() {
         setContent {
             PlateUpTheme {
                 val database = remember { AppDatabase.build(applicationContext) }
-                val authRepository = remember { AuthRepository(database.authDao()) }
+                val sessionManager = remember { SessionManager(applicationContext) }
+                val authRepository = remember { AuthRepository(database.authDao(), sessionManager) }
                 val recipeRepository = remember { RecipeRepository(database.recipeDao()) }
 
                 val authViewModel = remember {

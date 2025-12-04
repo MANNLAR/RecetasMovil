@@ -11,5 +11,10 @@ data class RecipeEntity(
     val tiempoMinutos: Int,
     val costo: String,
     val calificacion: Double,
-    val imagenUrl: String?
+    val imagenUrl: String?,
+    val creadoPor: Long,
+    val calorias: Int = 0,
+    val proteinas: Int = 0,
+    val grasas: Int = 0,
+    val carbohidratos: Int = 0
 )
