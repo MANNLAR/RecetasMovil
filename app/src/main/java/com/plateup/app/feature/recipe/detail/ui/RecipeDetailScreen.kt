@@ -36,13 +36,17 @@ fun RecipeDetailScreen(viewModel: RecipeDetailViewModel, recipeId: Long) {
     viewModel.cargar(recipeId)
     val receta = viewModel.receta.value
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     val context = LocalContext.current
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
 
     Column(
         modifier = Modifier
             .fillMaxSize()
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
             .background(
                 Brush.verticalGradient(
@@ -55,10 +59,13 @@ fun RecipeDetailScreen(viewModel: RecipeDetailViewModel, recipeId: Long) {
             .verticalScroll(rememberScrollState())
 =======
 >>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
             .padding(16.dp)
     ) {
         Text(
             text = receta?.titulo ?: "Detalle de receta",
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
             style = MaterialTheme.typography.headlineMedium,
             fontWeight = FontWeight.Bold
@@ -144,6 +151,8 @@ private fun InfoChip(text: String, icon: androidx.compose.ui.graphics.vector.Ima
         icon?.let { Icon(it, contentDescription = null, tint = MaterialTheme.colorScheme.primary) }
         Text(text = text, style = MaterialTheme.typography.bodyMedium)
 =======
+=======
+>>>>>>> Stashed changes
             style = MaterialTheme.typography.titleLarge
         )
 
@@ -185,6 +194,9 @@ private fun InfoChip(text: String, icon: androidx.compose.ui.graphics.vector.Ima
         Button(onClick = { /* TODO Compartir */ }) {
             Text("Compartir")
         }
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
     }
 }
