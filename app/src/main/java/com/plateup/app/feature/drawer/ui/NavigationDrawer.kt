@@ -21,6 +21,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import com.plateup.app.R
 import com.plateup.app.feature.drawer.model.DrawerItem
@@ -95,6 +96,7 @@ private fun PlaceholderIcon() {
     )
 }
 
+@Composable
 fun defaultDrawerItems(): List<DrawerItem> = listOf(
     DrawerItem(icon = ImageVector.vectorResource(id = R.drawable.ic_launcher_foreground), label = "Inicio", route = "home"),
     DrawerItem(icon = ImageVector.vectorResource(id = R.drawable.ic_launcher_foreground), label = "Recetas", route = "recipes"),
@@ -108,3 +110,4 @@ fun defaultDrawerItems(): List<DrawerItem> = listOf(
     DrawerItem(icon = ImageVector.vectorResource(id = R.drawable.ic_launcher_foreground), label = "Datos personales", route = "profile"),
     DrawerItem(icon = ImageVector.vectorResource(id = R.drawable.ic_launcher_foreground), label = "Cerrar sesión", route = "logout")
 )
+

@@ -26,8 +26,12 @@ class ProfileViewModel(
         viewModelScope.launch {
             observeProfile(userId).collect { perfil ->
                 _perfil.value = perfil
+
                 val (valor, categoria) = calcularImc(perfil?.peso, perfil?.altura)
-                _imcTexto.value = valor?.let { "IMC ${'$'}{String.format("%.1f", it)} - ${'$'}categoria" } ?: "Sin datos"
+
+                _imcTexto.value = valor?.let { imc ->
+                    "IMC ${String.format("%.1f", imc)} - $categoria"
+                } ?: "Sin datos"
             }
         }
     }

@@ -35,11 +35,15 @@ import com.plateup.app.feature.recipe.detail.viewmodel.RecipeDetailViewModel
 fun RecipeDetailScreen(viewModel: RecipeDetailViewModel, recipeId: Long) {
     viewModel.cargar(recipeId)
     val receta = viewModel.receta.value
+<<<<<<< Updated upstream
     val context = LocalContext.current
+=======
+>>>>>>> Stashed changes
 
     Column(
         modifier = Modifier
             .fillMaxSize()
+<<<<<<< Updated upstream
             .background(
                 Brush.verticalGradient(
                     colors = listOf(
@@ -49,10 +53,13 @@ fun RecipeDetailScreen(viewModel: RecipeDetailViewModel, recipeId: Long) {
                 )
             )
             .verticalScroll(rememberScrollState())
+=======
+>>>>>>> Stashed changes
             .padding(16.dp)
     ) {
         Text(
             text = receta?.titulo ?: "Detalle de receta",
+<<<<<<< Updated upstream
             style = MaterialTheme.typography.headlineMedium,
             fontWeight = FontWeight.Bold
         )
@@ -136,5 +143,48 @@ private fun InfoChip(text: String, icon: androidx.compose.ui.graphics.vector.Ima
     Row(verticalAlignment = androidx.compose.ui.Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
         icon?.let { Icon(it, contentDescription = null, tint = MaterialTheme.colorScheme.primary) }
         Text(text = text, style = MaterialTheme.typography.bodyMedium)
+=======
+            style = MaterialTheme.typography.titleLarge
+        )
+
+        Text(text = "Categoría: ${receta?.categoria ?: ""}")
+
+        Text(
+            text = "Ingredientes",
+            style = MaterialTheme.typography.headlineMedium
+        )
+
+        receta?.ingredientes?.forEach { ingrediente ->
+            Text("- ${ingrediente.cantidad} ${ingrediente.nombre}")
+        }
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        Text(
+            text = "Preparación",
+            style = MaterialTheme.typography.headlineMedium
+        )
+
+        receta?.pasos?.forEach { paso ->
+            Text("Paso ${paso.orden}: ${paso.descripcion}")
+        }
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        Text(text = "Información nutricional: TODO")
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        Text(text = "Comentarios")
+        Text(text = "Botones de acción")
+
+        Button(onClick = { /* TODO Guardar */ }) {
+            Text("Guardar")
+        }
+
+        Button(onClick = { /* TODO Compartir */ }) {
+            Text("Compartir")
+        }
+>>>>>>> Stashed changes
     }
 }

@@ -3,6 +3,8 @@ package com.plateup.app.app
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import com.plateup.app.core.theme.PlateUpTheme
 import com.plateup.app.core.util.SessionManager
@@ -70,6 +72,9 @@ class MainActivity : ComponentActivity() {
                 val recommendationsViewModel = remember { RecommendationsViewModel() }
                 val botChefViewModel = remember { BotChefViewModel() }
 
+                // 👇 Observar el StateFlow dentro de la composición
+                val currentUser by authViewModel.usuarioActual.collectAsState()
+
                 PlateUpApp(
                     authViewModel = authViewModel,
                     homeViewModel = homeViewModel,
@@ -84,7 +89,7 @@ class MainActivity : ComponentActivity() {
                     plannerViewModel = plannerViewModel,
                     recommendationsViewModel = recommendationsViewModel,
                     botChefViewModel = botChefViewModel,
-                    currentUserId = authViewModel.usuarioActual.value?.id
+                    currentUserId = currentUser?.id
                 )
             }
         }
