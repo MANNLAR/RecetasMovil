@@ -17,6 +17,7 @@ import com.plateup.app.domain.usecase.profile.ObserveProfile
 import com.plateup.app.domain.usecase.profile.UpdateProfile
 import com.plateup.app.domain.usecase.recipe.ObserveRecipe
 import com.plateup.app.domain.usecase.recipe.ObserveRecipes
+import com.plateup.app.domain.usecase.recipe.SearchRecipes
 import com.plateup.app.feature.auth.viewmodel.AuthViewModel
 import com.plateup.app.feature.botchef.viewmodel.BotChefViewModel
 import com.plateup.app.feature.compare.viewmodel.CompareViewModel
@@ -50,7 +51,9 @@ class MainActivity : ComponentActivity() {
                     )
                 }
                 val homeViewModel = remember { HomeViewModel(ObserveRecipes(recipeRepository)) }
-                val recipeListViewModel = remember { RecipeListViewModel(ObserveRecipes(recipeRepository)) }
+                val recipeListViewModel = remember {
+                    RecipeListViewModel(SearchRecipes(recipeRepository))
+                }
                 val recipeDetailViewModel = remember { RecipeDetailViewModel(ObserveRecipe(recipeRepository)) }
                 val editRecipeViewModel = remember { EditRecipeViewModel() }
                 val savedViewModel = remember { SavedViewModel() }
